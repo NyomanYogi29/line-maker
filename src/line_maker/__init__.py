@@ -1,6 +1,7 @@
 import pygame
 from algorithm import brute_force
 from algorithm import dda
+from algorithm import bresenham
 
 ALGORITHMS = {
     1: "Brute Force - Garis",
@@ -64,7 +65,7 @@ def main() -> None:
                     elif current_mode == ALGORITHMS[2]:
                         pixels = dda.DDA(start_point[0], end_point[0], start_point[1], end_point[1])
                     elif current_mode == ALGORITHMS[3]:
-                        pass
+                        pixels = bresenham.line(start_point[0], end_point[0], start_point[1], end_point[1])
                     elif current_mode == ALGORITHMS[4]:
                         pass
                     if pixels:
