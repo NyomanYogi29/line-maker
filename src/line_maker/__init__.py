@@ -1,4 +1,5 @@
 import pygame
+import math
 from algorithm import brute_force
 from algorithm import dda
 from algorithm import bresenham
@@ -67,7 +68,12 @@ def main() -> None:
                     elif current_mode == ALGORITHMS[3]:
                         pixels = bresenham.line(start_point[0], end_point[0], start_point[1], end_point[1])
                     elif current_mode == ALGORITHMS[4]:
-                        pass
+                        dx = end_point[0] - start_point[0]
+                        dy = end_point[1] - start_point[1]
+
+                        radius = round(math.hypot(dx, dy))
+
+                        pixels = bresenham.circle(start_point[0], start_point[1], radius)
                     if pixels:
                         print(f"Total pixels: {len(pixels)}")
                     

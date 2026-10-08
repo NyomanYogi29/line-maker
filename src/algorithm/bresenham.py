@@ -37,5 +37,41 @@ def line(x1: int, x2: int, y1: int, y2: int) -> list[tuple[int, int]]:
 
     return pixels_to_draw
 
-def circle():
-    pass
+def circle(xc: int, yc: int, r: int) -> list[tuple[int, int]]:
+    pixels_to_draw: list[tuple[int, int]] = []
+
+    x = 0
+    y = r
+
+    p = 1 - r
+
+    def plot_symmetric_points(cx: int, cy: int, px: int, py: int) -> None:
+        # Reflect onto 8th octant
+        pixels_to_draw.extend([                                                                                                                      
+            (cx + px, cy + py),                                                                                                                      
+            (cx - px, cy + py),                                                                                                                      
+            (cx + px, cy - py),                                                                                                                      
+            (cx - px, cy - py),                                                                                                                      
+            (cx + py, cy + px),                                                                                                                      
+            (cx - py, cy + px),                                                                                                                      
+            (cx + py, cy - px),                                                                                                                      
+            (cx - py, cy - px),                                                                                                                      
+        ])
+
+    plot_symmetric_points(xc, yc, x, y)
+
+    while x < y:
+        x += 1
+
+        # Midpoint inside the circle -> y remain constant
+        if p < 0:
+            p += 2 * x + 1
+
+        # Midpoint outside the circle -> y moves down by 1 step
+        else:
+            y -= 1
+            p += 2 * x + 1 - 2 * y
+
+        plot_symmetric_points(xc, yc, x, y)
+
+    return pixels_to_draw
